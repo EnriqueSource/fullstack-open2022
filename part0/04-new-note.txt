@@ -1,0 +1,30 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+
+note over server:
+The server responds with HTML 302 code.
+This is a URL redirect.
+With it, the server asks the browser to make a new request
+to the address: https://studies.cs.helsinki.fi/exampleapp/notes.
+end note
+
+server-->browser: status-code-302(found)
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server->>browser: HTML-code
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+The browser executes the javascript code.
+This javascript code requests a JSON data file from the server.
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: [{ content: "DR....", date: "2022-03-..." }, ...]
+
+note over browser:
+the browser executes the event handler.
+This handler renders the new "notes" page on the screen.
+end note
+

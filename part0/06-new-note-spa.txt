@@ -1,0 +1,15 @@
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: status-code-201(created)
+note over browser:
+The new note is created and added to the notes page
+directly from the browser.
+To do this, the browser executes the javascript code contained
+in the spa.js resource.
+This resource had already been downloaded with the requests
+prior to the creation of the note.
+Therefore, it is not necessary to make a new request or download.
+With SPA it is only necessary to send a copy of the new "notes" (data.JSON)
+page to the server so that the server saves the changes.
+The browser itself refreshes the notes page so that the changes
+appear on the display.
+end note
