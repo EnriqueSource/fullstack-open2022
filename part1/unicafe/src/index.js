@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const Statistics = (props) => {
+  if (props.total === 0) {
+    return <div>No feedback given</div>;
+  }
+
   return (
-    <div>
-      {props.text}
-      {props.display}
-      {props.percentageSign}
-    </div>
+    <>
+      <div>good: {props.good}</div>
+      <div>neutral: {props.neutral}</div>
+      <div>bad: {props.bad}</div>
+      <div>all: {props.total}</div>
+      <div>average: {props.average}</div>
+      <div>positive: {props.positivePercent} %</div>
+    </>
   );
 };
 
@@ -36,10 +43,10 @@ const App = () => {
 
   // Percentage of positive comments
   // const [percent, setPercent] = useState(0);
-  let percent = 0;
+  let positivePercent = 0;
 
   if (arrayOfValues.length !== 0) {
-    percent = (good / arrayOfValues.length) * 100;
+    positivePercent = (good / arrayOfValues.length) * 100;
   }
 
   // Event handlers
@@ -47,7 +54,6 @@ const App = () => {
     setGood(good + 1);
     setTotal(total + 1);
     setArrayOfValues(arrayOfValues.concat(1));
-    //setPercent()
   };
 
   const handleNeutralClick = () => {
@@ -68,12 +74,17 @@ const App = () => {
       <button onClick={handleGoodClick}>good</button>
       <button onClick={handleNeutralClick}>neutral</button>
       <button onClick={handleBadClick}>bad</button>
-      <Statistics text="good: " display={good} />
-      <Statistics text="neutral: " display={neutral} />
-      <Statistics text="bad: " display={bad} />
-      <Statistics text="total: " display={total} />
-      <Statistics text="average: " display={average} />
-      <Statistics text="positive: " display={percent} percentageSign=" %" />
+      <h2>
+        <strong>statistics</strong>
+      </h2>
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={total}
+        average={average}
+        positivePercent={positivePercent}
+      />
     </>
   );
 };
