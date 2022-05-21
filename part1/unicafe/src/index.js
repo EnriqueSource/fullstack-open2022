@@ -7,10 +7,8 @@ const Button = (props) => {
 
 const Statistics = (props) => {
   return (
-    <div>
-      <p value={props.average}>
-        {props.text}: {props.value}
-      </p>
+    <div value={props.average}>
+      {props.text} {props.value} {props.sign}
     </div>
   );
 };
@@ -75,7 +73,58 @@ const App = () => {
       <h2>
         <strong>statistics</strong>
       </h2>
-      <Statistics text="average" value={average} />
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Statistics text="good" />
+            </td>
+            <td>
+              <Statistics value={good} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Statistics text="neutral" />
+            </td>
+            <td>
+              <Statistics value={neutral} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Statistics text="bad" />
+            </td>
+            <td>
+              <Statistics value={bad} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Statistics text="all" />
+            </td>
+            <td>
+              <Statistics value={total} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Statistics text="average" />
+            </td>
+            <td>
+              <Statistics value={average} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Statistics text="positive" />
+            </td>
+            <td>
+              <Statistics value={positivePercent} sign="%" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };
