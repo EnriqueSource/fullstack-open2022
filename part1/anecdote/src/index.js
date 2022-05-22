@@ -1,10 +1,25 @@
-import React, { userState } from "react";
-import ReactDOM from "react-dom/client";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+
+const Button = (props) => {
+  return <button onClick={props.onClick}>{props.text}</button>;
+};
 
 const App = (props) => {
-  const [selected, setSelected] = userState(0);
+  const [selected, setSelected] = useState(0);
 
-  return <div>{props.anecdites[selected]}</div>;
+  // Event handlers
+  const handleNextClick = () => {
+    const randomAnecdotes = Math.floor(Math.random() * anecdotes.length);
+    setSelected(randomAnecdotes);
+  };
+
+  return (
+    <>
+      <div>{props.anecdotes[selected]}</div>
+      <Button onClick={handleNextClick} text="next anecdote" />
+    </>
+  );
 };
 
 const anecdotes = [
@@ -16,4 +31,4 @@ const anecdotes = [
   "Debugging is twice as hard as writing tne code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
 ];
 
-ReactDOM.Render(<App anecdotes={anecdotes} />, document.getElementById("root"));
+ReactDOM.render(<App anecdotes={anecdotes} />, document.getElementById("root"));
