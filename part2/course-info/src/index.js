@@ -8,6 +8,11 @@ const Course = (props) => {
       <div>
         {props.content} {props.exercises}
       </div>
+      <p>
+        <strong>
+          {props.text1} {props.sumOfExercises} {props.text2}
+        </strong>
+      </p>
     </div>
   );
 };
@@ -32,8 +37,20 @@ const App = () => {
         exercises: 14,
         id: 3,
       },
+      {
+        title: "Redux",
+        exercises: 11,
+        id: 4,
+      },
     ],
   };
+
+  // Sumando el total de los ejercicios
+  const arrayOfExercises = course.parts.map((part) => {
+    return part.exercises;
+  });
+
+  const sumOfExercises = arrayOfExercises.reduce((a, b) => a + b, 0);
 
   return (
     <>
@@ -58,6 +75,11 @@ const App = () => {
           </tr>
         </tbody>
       </table>
+      <Course
+        text1="Total of"
+        sumOfExercises={sumOfExercises}
+        text2="exercises"
+      />
     </>
   );
 };
