@@ -1,73 +1,84 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-const Course = (props) => {
-  return (
-    <div>
-      <h1>{props.header}</h1>
-      <div>
-        {props.content} {props.exercises}
-      </div>
-      <p>
-        <strong>
-          {props.text1} {props.sumOfExercises} {props.text2}
-        </strong>
-      </p>
-    </div>
-  );
-};
+import Courses from "./components/Courses";
 
 const App = () => {
-  const course = {
-    id: 1,
-    name: "Half Stack application development",
-    parts: [
-      {
-        title: "Fundamentals of React",
-        exercises: 10,
-        id: 1,
-      },
-      {
-        title: "Using props to pass data",
-        exercises: 7,
-        id: 2,
-      },
-      {
-        title: "State of component",
-        exercises: 14,
-        id: 3,
-      },
-      {
-        title: "Redux",
-        exercises: 11,
-        id: 4,
-      },
-    ],
-  };
+  const courses = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "Middlewares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
 
-  // Sumando el total de los ejercicios
-  const arrayOfExercises = course.parts.map((part) => {
+  // Sumando el total de los ejercicios del curso 1
+  const arrayOfExercises1 = courses[0].parts.map((part) => {
     return part.exercises;
   });
 
-  const sumOfExercises = arrayOfExercises.reduce((a, b) => a + b, 0);
+  const sumOfExercises1 = arrayOfExercises1.reduce((a, b) => a + b, 0);
+
+  // Sumando el total de los ejercicios del curso 2
+  const arrayOfExercises2 = courses[1].parts.map((part) => {
+    return part.exercises;
+  });
+
+  const sumOfExercises2 = arrayOfExercises2.reduce((a, b) => a + b, 0);
 
   return (
     <>
-      <Course header={course.name} />
+      <Courses header="Web development curriculum" />
+      <Courses title={courses[0].name} />
       <table>
         <tbody>
           <tr>
             <td>
-              <Course
-                content={course.parts.map((part) => (
-                  <div key={part.id}>{part.title}</div>
+              <Courses
+                content={courses[0].parts.map((part) => (
+                  <div key={part.id}>{part.name}</div>
                 ))}
               />
             </td>
             <td>
-              <Course
-                exercises={course.parts.map((part) => (
+              <Courses
+                exercises={courses[0].parts.map((part) => (
                   <div key={part.id}>{part.exercises}</div>
                 ))}
               />
@@ -75,13 +86,39 @@ const App = () => {
           </tr>
         </tbody>
       </table>
-      <Course
+      <Courses
         text1="Total of"
-        sumOfExercises={sumOfExercises}
+        sumOfExercises={sumOfExercises1}
+        text2="exercises"
+      />
+      <Courses title={courses[1].name} />
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Courses
+                content={courses[1].parts.map((part) => (
+                  <div key={part.id}>{part.name}</div>
+                ))}
+              />
+            </td>
+            <td>
+              <Courses
+                exercises={courses[1].parts.map((part) => (
+                  <div key={part.id}>{part.exercises}</div>
+                ))}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <Courses
+        text1="Total of"
+        sumOfExercises={sumOfExercises2}
         text2="exercises"
       />
     </>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App course={Courses} />, document.getElementById("root"));
