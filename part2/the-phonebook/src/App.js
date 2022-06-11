@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Person from "./components/Person";
 
 const App = () => {
-  const [persons, setPersons] = useState([{}]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
 
   // Event handler
@@ -38,7 +38,7 @@ const App = () => {
       <h2>Numbers</h2>
       <div>
         {persons.map((person) => (
-          <Person key={person.toString()} person={person} />
+          <Person key={person.id} person={person} />
         ))}
       </div>
     </div>
