@@ -4,37 +4,30 @@ import Person from "./components/Person";
 const App = (props) => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
-  const [isAlready, setIsAlready] = useState(false);
 
   // Event handler
   const addName = (event) => {
     event.preventDefault();
-    const personObject = {
-      content: newName,
-      id: persons.length + 1,
-    };
+    const person = persons.filter((person) => person.content === newName);
 
-    //console.log(personObject);
+    if (person.length !== 0) {
+      alert(`${newName} is already added to phonebook`);
+    } else {
+      const personObject = {
+        content: newName,
+        id: persons.length + 1,
+      };
+      setPersons(persons.concat(personObject));
+      setNewName("");
 
-    setPersons(persons.concat(personObject));
-    setNewName("");
+      console.log(personObject);
+    }
   };
 
   const handlePersonsChange = (event) => {
     setNewName(event.target.value);
-    //console.log(event.target.value);
+    console.log(event.target.value);
   };
-
-  // extraemos los nombres existentes en  la lista
-  const listOfPersons = persons.map((person) => person.content);
-  console.log(listOfPersons);
-
-  const handleIsAlready = () => {
-    const listOfPersons = persons.map((person) => person.content);
-    setIsAlready(listOfPersons.includes(newName));
-  };
-
-  console.log(isAlready);
 
   return (
     <div>
@@ -44,9 +37,7 @@ const App = (props) => {
           name: <input value={newName} onChange={handlePersonsChange} />
         </div>
         <div>
-          <button type="submit" onClick={handleIsAlready}>
-            add
-          </button>
+          <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
@@ -55,16 +46,10 @@ const App = (props) => {
           <Person key={person.id} person={person} />
         ))}
       </div>
-      <div>
-        debug:
-        {persons.map((person) => {
-          return (
-            <p key={person.id}>
-              <strong>{person.content}</strong>
-            </p>
-          );
-        })}
-      </div>
+      <p>
+        <strong>debug: </strong>
+        {newName}
+      </p>
     </div>
   );
 };
