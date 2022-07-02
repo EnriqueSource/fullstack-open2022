@@ -1,11 +1,10 @@
 import React from "react";
 
-const SeachFilter = (props) => {
-  //console.log(props);
+const SeachFilter = ({value, onChange}) => {
   return (
     <div>
       filter shown with:
-      <input value={props.value} onChange={props.onChange} />
+      <input value={value} onChange={onChange} />
     </div>
   );
 };
