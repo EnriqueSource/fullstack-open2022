@@ -1,37 +1,35 @@
-import {useState, useEffect} from "react";
-import Countries from "./components/Countries";
-import Filter from "./components/Filter";
+import { useState, useEffect } from "react";
+import CountriesDisplay from "./components/CountriesDisplay";
+import SearchInput from "./components/SearchInput";
 import axios from "axios";
+
 const App = () => {
-    const [countries, setCountries] = useState([]);
-    const [searchCountry, setSearchCountry] = useState('');
+  const [countries, setCountries] = useState([]);
+  const [searchCountry, setSearchCountry] = useState("");
 
-    useEffect(() => {
-        axios
-        .get('https://restcountries.com/v2/all')
-        .then(response => {
-            const countries = response.data;
-            setCountries(countries);
-        })
-    }, [])
+  useEffect(() => {
+    axios.get("https://restcountries.com/v2/all")
+    .then((response) => {
+      setCountries(response.data);
+    });
+  }, []);
 
-    //event handler
-    const handleSearchCountries = (event) => {
-        console.log(event.target.value)
-        setSearchCountry(event.target.value);
+  //event handler
+  const handleSearchCountries = (event) => {
+    setSearchCountry(event.target.value);
 
-        const filter = new RegExp(searchCountry, 'i');
-        const filteredCountry = () => 
-            countries.filter((country) => country.name.match(filter));
-        setCountries(filteredCountry);
-    }
+    const filter = new RegExp(searchCountry, "i");
+    const filteredCountry = () =>
+      countries.filter((country) => country.name.match(filter));
+    setCountries(filteredCountry);
+  };
 
-    return (
-        <>
-            <Filter value={searchCountry} onChange={handleSearchCountries} />
-            <Countries countries={countries} handleSearchCountries={handleSearchCountries} />
-        </>
-    )
-}
+  return (
+    <>
+      <SearchInput value={searchCountry} onChange={handleSearchCountries} />
+      <CountriesDisplay countries={countries} />
+    </>
+  );
+};
 
 export default App;
