@@ -27,7 +27,7 @@ const CountriesDisplay = ({ countries }) => {
     return (
       <div>
         {countries.map((country) => (
-          <CountryDetails key={country.name} country={country} />
+          <CountryDetails key={country.name} country={country}/>
         ))}
       </div>
     )
