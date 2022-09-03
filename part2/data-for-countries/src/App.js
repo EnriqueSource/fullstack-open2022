@@ -7,12 +7,15 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
 
+  // promises api restcountries
   useEffect(() => {
     axios.get("https://restcountries.com/v2/all")
     .then((response) => {
       setCountries(response.data);
     });
   }, []);
+  //console.log(countries);
+  
 
   //event handler
   const handleSearchCountries = (event) => {

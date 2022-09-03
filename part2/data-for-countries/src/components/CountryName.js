@@ -9,7 +9,6 @@ const CountryName = ({countries, country}) => {
 
     const handleShowClick = () => {
         setShowDetail(true);
-        console.log(countries)
     };
 
     if (showDetail === true) {
