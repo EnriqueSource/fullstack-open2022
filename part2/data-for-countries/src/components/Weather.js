@@ -10,7 +10,7 @@ const Weather = (weathers) => {
 
     // mit params the URI can be shorter
     const params = {
-      // api key
+      // api key in an environment variable
       access_key: process.env.REACT_APP_API_KEY,
       // location
       query: 'London,uk'
