@@ -1,7 +1,8 @@
 import React from "react";
 import Languages from "./Languages";
+import Weather from "./Weather";
 
-const CountryDetails = ({country}) => {
+const CountryDetails = ({country, weather}) => {
   return (
     <div>
       <h2>{country.name}</h2>
@@ -10,6 +11,7 @@ const CountryDetails = ({country}) => {
       <p>Region: {country.region}</p>
       <Languages languages={country.languages}/>
       <img src={country.flag} alt="Country flag" width="350" height="250" />
+      <Weather />
     </div>
   )
 }
