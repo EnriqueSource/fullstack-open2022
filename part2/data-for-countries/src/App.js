@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CountriesDisplay from "./components/CountriesDisplay";
 import SearchInput from "./components/SearchInput";
 import axios from "axios";
+import Weather from "./components/Weather";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
