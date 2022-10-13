@@ -3,10 +3,14 @@ import CountryName from "./CountryName";
 import CountryDetails from "./CountryDetails";
 
 const CountriesDisplay = ({ countries }) => {
+
+  // wait for server
   if (countries.length === 0) {
     return (
       <p>connecting to the server, please wait</p>
     )
+
+    // if server is ready
     } else if (countries.length > 230) {
       return (
         <p>enter the name of a country</p>

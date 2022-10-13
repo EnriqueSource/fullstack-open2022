@@ -11,7 +11,7 @@ const CountryDetails = ({country, weather}) => {
       <p>Region: {country.region}</p>
       <Languages languages={country.languages}/>
       <img src={country.flag} alt="Country flag" width="350" height="250" />
-      <Weather />
+      <Weather country={country} />
     </div>
   )
 }
