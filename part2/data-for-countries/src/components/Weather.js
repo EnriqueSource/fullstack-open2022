@@ -30,6 +30,7 @@ const Weather = ( {weathers, country}) => {
     <>
       <h3>Weather</h3>
       <p>The capital from {country.name} is {country.capital}</p>
+      <p>Forecast:</p>
     </>
   )
 
