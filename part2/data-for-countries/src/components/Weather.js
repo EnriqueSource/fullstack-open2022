@@ -1,36 +1,43 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-const Weather = ( {weathers, country}) => {
+
+const Weather = ( {country}) => {
 
   const [weather, setWeather] = useState({});
-
+  
   // promises api weatherstack
   useEffect(() => {
-
-    // mit params the URI can be shorter
-    let params = {
-      // api key in an environment variable
-      access_key: process.env.REACT_APP_API_KEY,
-      // location
-      query: 'Berlin'
+    // fetch data only if country exists
+    if (country) {
+      axios
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID=e1e88ab6c34bff6783f8ce6ea81cc26c&units=metric`)
+      .then((response) => {
+        setWeather(response.data);
+      });
     }
-    
-    axios
-    .get(`https://api.openweathermap.org/data/2.5/weather?q=${params.query}&APPID=${params.access_key}&units=metric`)
-    .then((response) => {
-      setWeather(response.data);
-    });
-  }, []);
+  }, [country]);
 
-  //console.log(country.capital);
+
+  console.log(country.capital);
   console.log(weather.main);
+
+  // We create a conditional rendering so that the app
+  // does not break if the weather prediction api data
+  // has not yet been downloaded.
+  if (weather.main === undefined) {
+    return (
+      <p>waiting for weather data</p>
+    )
+  }
 
   return (
     <>
       <h3>Weather</h3>
-      <p>The capital from {country.name} is {country.capital}</p>
-      <p>Forecast:</p>
+      <p>Forecast in {country.capital} ({country.name})</p>
+      <div>
+        {weather.main.temp} degrees Celsius
+      </div>
     </>
   )
 
