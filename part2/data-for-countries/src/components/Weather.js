@@ -11,7 +11,7 @@ const Weather = ( {country}) => {
     // fetch data only if country exists
     if (country) {
       axios
-      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID=e1e88ab6c34bff6783f8ce6ea81cc26c&units=metric`)
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID={process.env.REACT_APP_API_KEY}&units=metric`)
       .then((response) => {
         setWeather(response.data);
       });
