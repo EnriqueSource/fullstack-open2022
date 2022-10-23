@@ -1,26 +1,21 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
-
 const Weather = ( {country}) => {
 
   const [weather, setWeather] = useState({});
   
-  // promises api weatherstack
+  // promises api openweathermap.org
   useEffect(() => {
     // fetch data only if country exists
     if (country) {
       axios
-      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID={process.env.REACT_APP_API_KEY}&units=metric`)
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID=${process.env.REACT_APP_API_KEY}&units=metric`)
       .then((response) => {
         setWeather(response.data);
       });
     }
   }, [country]);
-
-
-  console.log(country.capital);
-  console.log(weather.main);
 
   // We create a conditional rendering so that the app
   // does not break if the weather prediction api data
@@ -31,16 +26,17 @@ const Weather = ( {country}) => {
     )
   }
 
-  return (
+ return (
     <>
       <h3>Weather</h3>
-      <p>Forecast in {country.capital} ({country.name})</p>
-      <div>
-        {weather.main.temp} degrees Celsius
-      </div>
+      <p>Forecast in <strong>{country.capital}</strong> ({country.name})</p>
+      <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`} alt="weather icon"/>
+      <p><strong>{weather.weather[0].description}</strong></p>
+      <p>temperature: {weather.main.temp} ⁰C (min: {weather.main.temp_min} ⁰C, max: {weather.main.temp_max} ⁰C)</p>
+      <p>humidity: {weather.main.humidity} %</p>
+      <p>wind: {weather.wind.speed} m/s, {weather.wind.deg} ⁰</p>
     </>
   )
-
 }
 
 export default Weather;
