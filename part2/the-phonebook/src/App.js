@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Numbers from "./components/Numbers";
 import SeachFilter from "./components/SearchFilter";
-import AddPersonForm from "./components/AddPersonForm";
-import axios from "axios";
+import personService from "./services/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -11,11 +10,10 @@ const App = () => {
   const [filterName, setFilterName] = useState("");
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(response => {
-        const persons = response.data;
-        setPersons(persons);
+        setPersons(response.data)
       })
   }, [])
 
@@ -30,18 +28,18 @@ const App = () => {
       const personObject = {
         name: newName,
         number: newNumber,
-       id: persons.length + 1
+        id: persons.length + 1
       };
 
       console.log(personObject);
-
-      axios
-        .post('http://localhost:3001/persons', personObject)
+      personService
+        .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data));
           setNewName("");
           setNewNumber("");
-      })
+        })
+      console.log(newName);
     }
   };
 
@@ -70,13 +68,17 @@ const App = () => {
       <h2>Phonebook</h2>
       <SeachFilter value={filterName} onChange={handleFilterChange} />
       <h2>Add a new person</h2>
-      <AddPersonForm
-        onSubmit={addPerson}
-        Value={newName}
-        value={newNumber}
-        handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}
-      />
+      <form onSubmit={addPerson}>
+      <div>
+        name: <input value={newName} onChange={handleNameChange} />
+      </div>
+      <div>
+        number: <input value={newNumber} onChange={handleNumberChange} />
+      </div>
+      <div>
+        <button type="submit">add</button>
+      </div>
+    </form>
       <h2>Numbers</h2>
       <Numbers persons={persons} />
       <p>
