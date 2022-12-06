@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Numbers from "./components/Numbers";
-import SeachFilter from "./components/SearchFilter";
+import ContactList from "./components/ContactList";
+import SearchFilter from "./components/SearchFilter";
 import personService from "./services/persons";
 
 const App = () => {
@@ -12,8 +12,8 @@ const App = () => {
   useEffect(() => {
     personService
       .getAll()
-      .then(response => {
-        setPersons(response.data)
+      .then(initialPersons => {
+        setPersons(initialPersons);
       })
   }, [])
 
@@ -34,8 +34,8 @@ const App = () => {
       console.log(personObject);
       personService
         .create(personObject)
-        .then(response => {
-          setPersons(persons.concat(response.data));
+        .then(retornedPerson => {
+          setPersons(persons.concat(retornedPerson));
           setNewName("");
           setNewNumber("");
         })
@@ -66,7 +66,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <SeachFilter value={filterName} onChange={handleFilterChange} />
+      <SearchFilter value={filterName} onChange={handleFilterChange} />
       <h2>Add a new person</h2>
       <form onSubmit={addPerson}>
       <div>
@@ -80,7 +80,7 @@ const App = () => {
       </div>
     </form>
       <h2>Numbers</h2>
-      <Numbers persons={persons} />
+      <ContactList persons={persons} />
       <p>
         <strong>debug: </strong>
         {newName} {newNumber}
