@@ -44,7 +44,7 @@ const App = () => {
   };
 
   const removeThisPerson = (person) => {
-    console.log('the person ' + person + ' should be removed')
+    window.confirm(`delete ${person} ?` );
   };
 
   const handleNameChange = (event) => {
