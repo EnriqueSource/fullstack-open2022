@@ -43,6 +43,10 @@ const App = () => {
     }
   };
 
+  const removeThisPerson = (id) => {
+    console.log('the person ' + id + ' should be removed')
+  };
+
   const handleNameChange = (event) => {
     setNewName(event.target.value);
     console.log(event.target.value);
@@ -69,18 +73,18 @@ const App = () => {
       <SearchFilter value={filterName} onChange={handleFilterChange} />
       <h2>Add a new person</h2>
       <form onSubmit={addPerson}>
-      <div>
-        name: <input value={newName} onChange={handleNameChange} />
-      </div>
-      <div>
-        number: <input value={newNumber} onChange={handleNumberChange} />
-      </div>
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-      <h2>Numbers</h2>
-      <ContactList persons={persons} />
+        <div>
+          name: <input value={newName} onChange={handleNameChange} />
+        </div>
+        <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Contact list</h2>
+      <ContactList persons={persons} removeThisPerson={removeThisPerson} />
       <p>
         <strong>debug: </strong>
         {newName} {newNumber}
