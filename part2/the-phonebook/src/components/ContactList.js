@@ -7,7 +7,7 @@ const ContactList = ({ persons, removeThisPerson }) => (
       <Person 
         key={person.id} 
         person={person}
-        removePerson={() => removeThisPerson(person.id)}
+        removePerson={() => removeThisPerson(person.name)}
         />
     ))}
   </div>

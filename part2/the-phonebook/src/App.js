@@ -43,8 +43,8 @@ const App = () => {
     }
   };
 
-  const removeThisPerson = (id) => {
-    console.log('the person ' + id + ' should be removed')
+  const removeThisPerson = (person) => {
+    console.log('the person ' + person + ' should be removed')
   };
 
   const handleNameChange = (event) => {
