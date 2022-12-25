@@ -1,13 +1,13 @@
 import React from "react";
 import Person from "./Person";
 
-const ContactList = ({ persons, removeThisPerson }) => (
+const ContactList = ({ persons, removePerson }) => (
   <div>
     {persons.map((person) => (
       <Person 
         key={person.id} 
         person={person}
-        removePerson={() => removeThisPerson(person.name)}
+        removePerson={() => removePerson(person.id, person.name)}
         />
     ))}
   </div>
