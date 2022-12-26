@@ -21,7 +21,6 @@ const App = () => {
   }, [])
 
   // event handler
-
   // add new contact person
   const addPerson = (event) => {
     event.preventDefault();
