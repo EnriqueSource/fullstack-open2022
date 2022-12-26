@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import ContactList from "./components/ContactList";
 import SearchFilter from "./components/SearchFilter";
 import personService from "./services/persons";
+import axios from "axios";
+import Person from "./components/Person";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -9,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filterName, setFilterName] = useState("");
 
+  // we obtain the list of contacts updated in each new rendering.
   useEffect(() => {
     personService
       .getAll()
@@ -17,7 +20,9 @@ const App = () => {
       })
   }, [])
 
-  // Event handler
+  // event handler
+
+  // add new contact person
   const addPerson = (event) => {
     event.preventDefault();
     const person = persons.filter((person) => person.name === newName);
@@ -43,11 +48,21 @@ const App = () => {
     }
   };
 
+  // delete contact person
+  const removePerson = (id, name) => {
+    if (window.confirm(`delete ${name}`)) {
+      axios.delete(`http://localhost:3001/persons/${id}`);
+      setPersons(persons.filter(person => person.id !== id));
+    }
+  };
+
+  // handle name input changes
   const handleNameChange = (event) => {
     setNewName(event.target.value);
     console.log(event.target.value);
   };
 
+  // handle number input changes
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value);
     console.log(event.target.value);
@@ -69,18 +84,18 @@ const App = () => {
       <SearchFilter value={filterName} onChange={handleFilterChange} />
       <h2>Add a new person</h2>
       <form onSubmit={addPerson}>
-      <div>
-        name: <input value={newName} onChange={handleNameChange} />
-      </div>
-      <div>
-        number: <input value={newNumber} onChange={handleNumberChange} />
-      </div>
-      <div>
-        <button type="submit">add</button>
-      </div>
-    </form>
-      <h2>Numbers</h2>
-      <ContactList persons={persons} />
+        <div>
+          name: <input value={newName} onChange={handleNameChange} />
+        </div>
+        <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
+          <button type="submit">add</button>
+        </div>
+      </form>
+      <h2>Contact list</h2>
+      <ContactList persons={persons} removePerson={removePerson} />
       <p>
         <strong>debug: </strong>
         {newName} {newNumber}
