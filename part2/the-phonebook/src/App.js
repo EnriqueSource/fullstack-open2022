@@ -21,7 +21,6 @@ const App = () => {
   }, [])
 
   // event handler
-
   // add new contact person
   const addPerson = (event) => {
     event.preventDefault();
@@ -51,8 +50,9 @@ const App = () => {
   // delete contact person
   const removePerson = (id, name) => {
     if (window.confirm(`delete ${name}`)) {
-      axios.delete(`http://localhost:3001/persons/${id}`);
-      setPersons(persons.filter(person => person.id !== id));
+      personService
+        .remove(id)
+        setPersons(persons.filter(person => person.id !== id));
     }
   };
 
