@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ContactList from "./components/ContactList";
 import SearchFilter from "./components/SearchFilter";
 import personService from "./services/persons";
-//import Person from "./components/Person";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
