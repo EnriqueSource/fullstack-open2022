@@ -25,7 +25,13 @@ const App = () => {
     const person = persons.filter((person) => person.name === newName);
 
     if (person.length !== 0) {
-      alert(`${newName} is already added to phonebook`);
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const updateNumber = () => {
+          console.log(`${newName}'s number needs to be update`)
+        }
+
+        updateNumber();
+      }
     } else {
       const personObject = {
         name: newName,
@@ -66,6 +72,7 @@ const App = () => {
     console.log(event.target.value);
   };
 
+  // handle filtered search by name
   const handleFilterChange = (event) => {
     setFilterName(event.target.value);
     console.log(event.target.value);
