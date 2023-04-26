@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ContactList from "./components/ContactList";
 import SearchFilter from "./components/SearchFilter";
 import personService from "./services/persons";
+import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -26,8 +27,14 @@ const App = () => {
 
     if (person.length !== 0) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
-        const updateNumber = () => {
-          console.log(`${newName}'s number needs to be update`)
+        const updateNumber = (name) => {
+          const person = persons.find(p => p.name === newName);
+          const changedPerson = { ...person, number: newNumber};
+          const url = `http://localhost:3001/persons/${person.id}`;
+
+          axios.put(url, changedPerson).then(response => {
+            setPersons(persons.map(person => person.number !== newNumber ? person : Response.data));
+          })
         }
 
         updateNumber();
