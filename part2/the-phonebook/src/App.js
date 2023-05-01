@@ -37,7 +37,7 @@ const App = () => {
           })
         }
 
-        updateNumber();
+        setPersons(updateNumber());
       }
     } else {
       const personObject = {
